@@ -1,0 +1,20 @@
+### Główny problem
+Użytkownicy nowotworzonego systemu SCADA muszą mieć możliwość przeglądania danych z poszczególnych obiektów. Danych bieżących i historycznych w różnych ujęciach, a także ostrzeżeń i alarmów. 
+Użytkownicy pełniący role wdrożeniowców lub utrzymania ruchu muszą mieć możliwość łatwego dostępu do danych bieżących i głębszych informacji o działaniu systemu również w warunkach problematycznego dostępu do sieci.
+Aplikacje klienckie wcześniej używanych systemów - INFINIT8 i ThingsBoard - miały wady:
+- aplikacja kliencka TB jest zbyt "zrośnięta" z backendem systemu i wymaga pełnej konfiguracji a priori
+- autogenerowany widok mobilny aplikacji klienckiej INFINIT8 był wygodny, ale brakowało wersji prawdziwie mobilnej w formie aplikacji natywnej
+- aplikacja kliencka TB nie limituje komunikacji
+- konfiguracja aplikacji klienckiej INFINIT8 była skomplikowana
+
+### Najmniejszy zestaw funkcjonalności
+
+
+### Co NIE wchodzi w zakres MVP
+- Raporty
+- Alarmy
+- Potwierdzanie alarmów
+- Ustawianie poziomów ostrzegawczych i alarmowych
+- Notatki użytkownika
+
+### Kryteria sukcesu
