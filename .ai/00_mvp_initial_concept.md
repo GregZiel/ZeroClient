@@ -6,6 +6,7 @@ Aplikacje klienckie wcześniej używanych systemów - INFINIT8 i ThingsBoard - m
 - autogenerowany widok mobilny aplikacji klienckiej INFINIT8 był wygodny, ale brakowało wersji prawdziwie mobilnej w formie aplikacji natywnej
 - aplikacja kliencka TB nie limituje komunikacji
 - konfiguracja aplikacji klienckiej INFINIT8 była skomplikowana
+- brakowało widgetu wizualizacyjnego do umieszczania na stronach internetowych klientów i/lub ich partnerów
 
 ### Najmniejszy zestaw funkcjonalności
 - Wersja web dla urządzeń mobilnych
@@ -16,6 +17,7 @@ Aplikacje klienckie wcześniej używanych systemów - INFINIT8 i ThingsBoard - m
 - Autogenerowane widoki tabelaryczno/tekstowe vide INFINIT8
 - Cacheowanie obiektów a vista i minimalizacja transferu
 - Prosty deployment (Docker) na minimalnej infrastrukturze (Mikrus 1.0 Pro)
+- Prosty widget wizualizacyjny umieszczalny na stronie www (do dyskusji: umieszczamy go tu, czy w osobnym projekcie? wizualizacja będzie wspólna, ale deployment widgetu raczej osobny, choć z poziomu klienta będzie zarządzanie tokenami dostępowymi)
 
 ### Co NIE wchodzi w zakres MVP
 - Raporty
