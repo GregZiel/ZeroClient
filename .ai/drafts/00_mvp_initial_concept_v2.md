@@ -33,13 +33,15 @@ Ta lista będzie rozbudowywana.
 
 Produkty rzadko powstają w próźni "pełnego greenfieldu". Stąd istnienie dodatkowych wymogów / ograniczeń, nierzadko "na pograniczu" - wymóg techniczny narzucany przez biznes (vide: musimy korzystać z chmury Azure ze względu na umowy o współpracy z Microsoft; musimy korzystać z modeli Gemini bo szykujemy zgłoszenie do konkursu Google).
 
-- Ze względu na planowaną współpracę z wybranymi partnerami - kierunek (analityka) i ich preferowany stack (Python) - maksymalizujemy użycie Pythona i frameworka Dash.
+- Ze względu na planowaną współpracę z wybranymi partnerami - kierunek (analityka) i ich preferowany stack (Python) - ROZWAŻAMY użycie Pythona i frameworka Dash, jednak nie jest to konieczne.
 
 - Ze względu na założenie dużej reużywalności kodu - minimalizujemy koszt utrzymania - należy rozważyć orchestrację z użyciem architektury mikrofrontendów i technologii React Native.
 
 - Ze względu na konieczność dostarczania wybranych wizualizacji partnerom publicznym, takim jak gminy czy uczelnie, mikrofrontendy powinny mieć autogenerowaną lekką wersję do umieszczania jako widget na stronie www.
 
 - Ze względu na efektywność ekonomiczną i aspekt edukacyjny podstawę deploymentu jest Mikrus 1.0 Pro.
+
+- Ze względu na konieczność adresowania również potrzeb klientów indywidualnych, np. w projektach publicznych czy naukowo-badawczych, prezentacja danych musi być bardzo atrakcyjna wizualnie.
 
 ## 2. Najmniejszy zestaw funkcjonalności
 
