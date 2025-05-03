@@ -185,14 +185,14 @@ Acceptance Criteria:
 
 ### US-008: Basic Cache Management
 
-As a user, I want the system to cache data so I can continue monitoring when my connection is unstable.
+As a user, I want the system to automatically cache data so I can continue monitoring when my connection is unstable.
 
 Acceptance Criteria:
 
-- The system automatically caches all essential data for offline access
-- Users can manually trigger a cache refresh
-- The interface indicates when displaying cached data vs. live data
+- The system automatically caches essential data for offline access
+- The interface clearly indicates when displaying cached data vs. live data
 - The system automatically attempts to update cached data when connectivity returns
+- Cached data remains available during connectivity interruptions
 
 ### US-009: Manual Cache Control
 
@@ -234,6 +234,7 @@ As a monitoring user, I want to adjust the data polling frequency to balance rea
 Acceptance Criteria:
 
 - Users can select from predefined polling frequency options
+- Users can configure separate refresh rates for different views
 - Changes to polling frequency take effect immediately
 - The system respects the configured frequency without drift
 - Current polling configuration is clearly indicated in the interface
@@ -271,6 +272,19 @@ Acceptance Criteria:
 - Sessions expire after inactivity or explicit logout
 - Failed login attempts are limited to prevent brute force attacks
 
+### US-016: Field Work Preparation
+
+As a technician, I want to deliberately prepare data for field work in areas with poor or no connectivity.
+
+Acceptance Criteria:
+
+- Users can select specific installations for comprehensive caching
+- Users can manually trigger cache operations for selected installations
+- The system provides download progress indicators during caching
+- Cache completeness confirmation is provided before going offline
+- The interface shows the total size of downloaded data
+- Users can force a cache refresh to ensure latest data before field work
+
 ## 6. Success Metrics
 
 The success of the ZeroClient MVP will be measured using the following metrics:
@@ -280,7 +294,7 @@ The success of the ZeroClient MVP will be measured using the following metrics:
 1. Successful data subscription and retrieval from both target backends (IBI Lab and URHydro)
 2. Consistent operation in GSM signal conditions down to -100 dBm
 3. Cache effectiveness: Ability to view cached data after 30+ minutes offline
-4. Data efficiency: <5MB data usage per hour of active monitoring
+4. Data efficiency: <1MB data usage per hour of active monitoring
 5. Load time: <3 seconds for initial load on 3G connection
 6. Frontend performance: <100ms response time for UI interactions
 7. Polling reliability: >99% success rate for data polls under normal conditions
