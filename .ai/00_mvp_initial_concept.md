@@ -1,150 +1,152 @@
-# ZeroClient MVP - 2025-05-01
+# ZeroClient MVP initial concept - 2025-05-01 - 2025-05-03
 
-## 1. Identyfikacja kluczowego problemu
-Efektywne (1) monitorowanie wielu (2) heterogenicznych (3) instalacji przemysłowych (4) w warunkach mobilnego (5), ograniczonego pod względem przepustowości (6), stabilności (7) i sensu ekonomicznego (8) dostępu do Internetu, przy minimalizacji zależności od stanu wdrożenia (9) warstwy sprzętowo-programowej na poszczególnych instalacjach.
+## 1. Key Problem Identification
 
-(1) Efektywne - skupiamy się na sprawności obsługi, w tym na urządzeniach mobilnych
+Effective (1) monitoring of multiple (2) heterogeneous (3) industrial installations (4) in mobile (5), bandwidth-constrained (6), stability-challenged (7), and economically-sensitive (8) Internet access conditions, while minimizing dependence on the deployment status (9) of the hardware and software layer on individual installations.
 
-(2) Wielu - pracujemy w modelu N do M - wielu użytkowników o różnie skonfigurowanych aplikacjach monitoruje wiele instalacji
+(1) Effective - focusing on operational efficiency, including on mobile devices
 
-(3) Heterogenicznych - podstawą są instalacje monitorowane via ZeroSCADA, ale od razu otwieramy się też na instancje ThingsBoard, a docelowo potencjalnie na inne źródła via generyczne / customowe microfrontendy + stosowne moduły w backendzie ZeroClient
+(2) Multiple - working in an N-to-M model - many users with differently configured applications monitor many installations
 
-(4) Przemysłowych - więc nawet w mikroskali priorytetem jest niezawodność i wiarygodność
+(3) Heterogeneous - primarily installations monitored via ZeroSCADA, but immediately opening up to ThingsBoard instances as well, and potentially other sources via generic / custom microfrontends + appropriate modules in the ZeroClient backend
 
-(5) Mobilnie - więc aplikacja webowa musi być wygodnie używana na telefonie, a docelowo chcemy aplikację natywną
+(4) Industrial - so even on a micro-scale, reliability and trustworthiness are priorities
 
-(6) Niska przepustowość łącz - przynajmniej czasami, a więc wydajny i wygodnie kontrolowany cache elementów, najlepiej z wizualizacją co mamy w cache, ręczną kontrolą cache'owania, usuwania / odświeżania cache, kontrolą "czego brakuje"
+(5) Mobile - so the web application must be conveniently usable on a phone, and we ultimately want a native application
 
-(7) Problematyczna stabilność łącz - a więc wszystkie komponenty muszą być gotowe na takie warunki, plus dobrze umieścić gdzieś wskaźnik stanu komunikacji z serwerem (per instalacja) oraz czas ostatniego kontaktu
+(6) Low bandwidth connections - at least sometimes, so efficient and conveniently controlled element caching, preferably with visualization of what we have in the cache, manual control of caching, deleting / refreshing cache, control of "what's missing"
 
-(8) Ograniczenia sensu ekonomicznego transmisji - to przede wszystkim roaming, łącza płatne, pakiety, jednak ten aspekt w dużym stopniu obsługują same urządzenia mobilne, więc jest to głównie uwrażliwienie aplikacji na informacje płynące z systemu, rozwiązanie podobne jak w Spotify
+(7) Problematic connection stability - so all components must be ready for such conditions, plus it's good to place a communication status indicator with the server somewhere (per installation) and the time of the last contact
 
-(9) Minimalizacja zależności od stanu wdrożenia - punkt o największym wpływie na działanie aplikacji, ponieważ obejmuje:
+(8) Economic transmission limitations - primarily roaming, paid connections, packages, but this aspect is largely handled by the mobile devices themselves, so it's mainly about sensitizing the application to information flowing from the system, a solution similar to used in Spotify
 
-- niezależność od gotowości projektowanych / konfigurowanych ręcznie ekranów synoptycznych przez wprowadzenie autogenerowanych ekranów tekstowo-tabelarycznych, z możliwością przełączania się na graficzne w miarę postępów wdrożenia
+(9) Minimizing dependence on deployment status - the point with the greatest impact on the application's operation, because it includes:
 
-- ułatwienia typu "autodiscovery" redukujące czas tworzenia konfiguracji po stronie ZeroClient na podstawie subskrybowanej instalacji (ZeroSCADA / TB jako źródło)
+- independence from the readiness of designed / manually configured synoptic screens by introducing auto-generated text-tabular screens, with the ability to switch to graphical ones as deployment progresses
 
-- łatwe wymuszanie sterowań dla wybranych zmiennych (np. łatwa konfiguracja dla danej zmiennej ekranu sterującego z kilkoma przyciskami wymuszającymi wartości, np. "0", "1", "100" itp.)
+- facilities such as "autodiscovery" reducing the time to create configurations on the ZeroClient side based on the subscribed installation (ZeroSCADA / TB as a source)
 
-Ta lista będzie rozbudowywana.
+- easy forcing of controls for selected variables (e.g., easy configuration for a given variable of a control screen with several buttons forcing values, e.g., "0", "1", "100", etc.)
 
-Ponadto należy podkreślić:
+This list will be expanded.
 
-- Aplikacje klienckie mają być w pełni odsprzęgnięte od backendu ZeroSCADA
+Furthermore, it should be emphasized:
 
-- Jedna aplikacja kliencka powinna móc subskrybować dane z wielu backendów
+- Client applications should be completely decoupled from the ZeroSCADA backend
 
-- Każda instancja backendu powinna obsługiwać wiele instancji frontendu
+- One client application should be able to subscribe to data from multiple backends
 
-### Dodatkowe wymogi spoza podstawowego kontekstu biznesowego
+- Each backend instance should be able to handle multiple frontend instances
 
-Produkty rzadko powstają w próźni "pełnego greenfieldu". Stąd istnienie dodatkowych wymogów / ograniczeń, nierzadko "na pograniczu" - wymóg techniczny narzucany przez biznes (vide: musimy korzystać z chmury Azure ze względu na umowy o współpracy z Microsoft; musimy korzystać z modeli Gemini bo szykujemy zgłoszenie do konkursu Google).
+### Additional Requirements Outside the Basic Business Context
 
-- Ze względu na planowaną współpracę z wybranymi partnerami - kierunek (analityka) i ich preferowany stack (Python) - ROZWAŻAMY użycie Pythona i frameworka Dash, jednak nie jest to konieczne.
+Products rarely arise in a "full greenfield" vacuum. Hence the existence of additional requirements / constraints, often "on the border" - a technical requirement imposed by the business (e.g., we must use the Azure cloud due to cooperation agreements with Microsoft; we must use Gemini models because we are preparing an application for a Google competition).
 
-- Ze względu na założenie dużej reużywalności kodu - minimalizujemy koszt utrzymania - należy rozważyć orchestrację z użyciem architektury mikrofrontendów i technologii React Native.
+- Due to planned cooperation with selected partners - direction (analytics) and their preferred stack (Python) - we are CONSIDERING using Python and the Dash framework, but it is not necessary.
 
-- Ze względu na konieczność dostarczania wybranych wizualizacji partnerom publicznym, takim jak gminy czy uczelnie, mikrofrontendy powinny mieć autogenerowaną lekką wersję do umieszczania jako widget na stronie www.
+- Due to the assumption of high code reusability - we minimize maintenance costs - orchestration with the use of microfrontend architecture and React Native technology should be considered.
 
-- Ze względu na efektywność ekonomiczną i aspekt edukacyjny podstawę deploymentu jest Mikrus 1.0 Pro.
+- Due to the need to provide selected visualizations to public partners, such as municipalities or universities, microfrontends should have an auto-generated lightweight version for placement as a widget on a website.
 
-- Ze względu na konieczność adresowania również potrzeb klientów indywidualnych, np. w projektach publicznych czy naukowo-badawczych, prezentacja danych musi być bardzo atrakcyjna wizualnie.
+- Due to economic efficiency and the educational aspect, the basis of deployment is Mikrus 1.0 Pro (LXC container providing 1 vCPU, 640 MB RAM, 10 GB SSD, Ubuntu Linux, Docker).
 
-### Wartość biznesowa
+- Due to the need to address the needs of individual clients as well, e.g., in public or scientific-research projects, data presentation must be very visually appealing.
 
-- Umożliwienie efektywnej wizualizacji gromadzonych danych
+### Business Value
 
-- Ułatwianie wdrażania backendu ZeroSCADA na obiektach
+- Enabling effective visualization of collected data
 
-- Baza do współpracy z zespołami IT w zaprzyjaźnionych firmach
+- Facilitating the deployment of the ZeroSCADA backend on facilities
 
-## 2. Najmniejszy zestaw funkcjonalności
+- A base for cooperation with IT teams in friendly companies
 
-- Rejestracja + logowanie użytkownika
+## 2. Minimum Set of Functionalities
 
-- Poziomy dostępu
+- User registration + login
 
-    - **Informacyjny:** dostęp do gromadzonych danych i ich wizualizacji
+- Access levels
 
-    - **Monitorujący:** dodatkowo dostęp do szczegółowych logów i informacji o problemach
+  - **Informational:** access to collected data and its visualization
 
-    - **Serwisowy:** dodatkowo możliwość dodawania urządzeń i zmiany kluczy dostępowych
+  - **Monitoring:** additionally access to detailed logs and information about problems
 
-    - **Administracyjny:** pełna kontrola, włącznie z zarządzaniem użytkownikami
+  - **Service:** additionally the ability to add devices and change access keys
 
-- Subskrypcja min. 2 backendów opartych o ZeroSCADA, z użyciem URL API i klucza API:
+  - **Administrative:** full control, including user management
 
-    - dummy (symulowany)
+- Subscription of at least 2 backends based on ZeroSCADA, using URL API and API key:
 
-    - URHydro (faktyczny projekt rozwijany równolegle, mamy pewien wpływ na jego kształt, np. na kształt API)
+  - dummy (simulated) / IBI Lab (internal)
 
-- Persistence dla subskrypcji obiektów
+  - URHydro (actual project developed in parallel, we have some influence on its shape, e.g., on the shape of the API)
 
-- Zarządzanie zasubskrybowanymi obiektami:
+- Persistence for object subscriptions
 
-    - Edycja przyjaznej nazwy
+- Management of subscribed objects:
 
-    - Usuwanie subskrypcji
+  - Editing a friendly name
 
-- Autogenerowane widoki tabelaryczno/tekstowe
+  - Deleting a subscription
 
-- Podstawowe 2 widoki:
+- Autogenerated tabular/text views
 
-    - stan bieżący, z ostatnim pomiarem i czasem ostatniego kontaktu z backendem
+- Basic 2 views:
 
-    - prosty wykres historii (ostatnie 12h, uśrednienie)
+  - current status, with the last measurement and time of last contact with the backend
 
-- Deployment web (Docker @ Mikrus 1.0 Pro)
+  - simple history chart (last 12h, averaging)
 
-- Osadzenie widgetu w stronie www
+- Web deployment (Docker @ Mikrus 1.0 Pro)
 
-- Obsługa jedną ręką w przeglądarce na smartfonie
+- Embedding a widget on a website
 
-- Podstawowa wersja cache ("cache all")
+- One-handed operation in a browser on a smartphone
 
-- Zaawansowane cache'owanie:
+- Basic version of the cache ("cache all")
 
-    - Pobieranie wszystkich niezbędnych elementów na żądanie
+- Some features of advanced caching:
+
+  - Downloading all necessary elements on demand
   
-    - Widgety, strony, definicje, dane
+  - Widgets, pages, definitions, data
 
-    - Monitoring przy minimalnym transferze
+  - Monitoring with minimal transfer
 
-    - Optymalizacja dla słabego zasięgu GSM/braku WiFi
+  - Optimization for poor GSM coverage/no WiFi
 
+## 3. What is NOT included in the MVP
 
-## 3. Co NIE wchodzi w skład MVP
+- Reports
 
-- Raporty
+- Alarms
 
-- Alarmy
+- React Native application on the phone
 
-- Aplikacja React Native na telefonie
+- Support for TB / generic / other instances
 
-- Obsługa instancji TB / generycznych / innych
+- Handling information about the connection on devices (WiFi / GSM)
 
-- Obsługa informacji o łączu na urządzeniach (WiFi / GSM)
+- Detailed cache management
 
-- Szczegółowe zarządzanie cache
+- Full user support (self-reset password, etc.)
 
-- Pełna obsługa użytkowników (samodzielny reset hasła itp.)
+- Tickets to support inside the application
 
-- Tickety do supportu wewnątrz aplikacji
+- Full API autodiscovery (we provide the schema)
 
-- Pełne API autodiscovery (dostarczamy schemat)
+- Processing modules in the ZeroClient backend
 
-- Moduły przetwarzające w backendzie ZeroClient
+- MCP and analysis of results using LLM
 
-- MCP i analizy wyników z użyciem LLM
+- Support for multiple languages - initially everything in English
 
-- Obsługa wielu języków - na początek całość w języku angielskim
+## 4. Success Criteria
 
-## 4. Kryteria sukcesu
+- The application allows subscribing to two objects: IBI Lab and URHydro
 
-- Aplikacja pozwala zasubskrybować dwa obiekty: IBI Lab i URHydro
+- The possibility of current viewing of the station status during installation / service of the URHydro station (poor GSM conditions, the need to work from a smartphone, not a laptop)
 
-- Możliwość bieżącego podglądu stanu stacji przy instalacji / serwisie stacji URHydro (kiepskie warunki GSM, konieczność pracy z smartfona, nie z laptopa)
+- Widget with URHydro measurements on my blog's website (Wordpress) / fallback to a dedicated landing page
 
-- Widget z pomiarami URHydro na stronie www mojego bloga (Wordpress) / fallback do dedykowanej landing page
-
+---
+Created on 2025-05-03 by Grzegorz Zieliński with assistance from Alice.
