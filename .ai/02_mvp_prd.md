@@ -171,3 +171,6 @@ US-008: Refresh Rate Configuration
    - Zero data loss during connection interruptions
    - Positive feedback from field users
    - Stable operation on Mikrus 1.0 Pro
+
+---
+Created on 2025-05-04 by Grzegorz Zieliński with assistance from Alice (Claude 3.5 Sonnet).

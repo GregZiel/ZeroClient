@@ -53,3 +53,6 @@
 3. Exact specification of the authentication mechanism and token storage.
 4. Detailed system performance metrics.
 5. Final versioning strategy for APIs and microfrontends.
+
+---
+Created on 2025-05-03 by Grzegorz Zieliński with assistance from Alice (Gemini 2.5 Pro, then Claude 3.5 Sonnet).
